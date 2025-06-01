@@ -14,7 +14,7 @@ app.use(express.json())
 
 const allowedOrigins = [
   'http://localhost:5173',            // dev local
-  'https://resumoai.vercel.app',     // frontend Vercel (ajusta se for outro domínio)
+  'https://resumo-ai.vercel.app/',     // frontend Vercel (ajusta se for outro domínio)
 ];
 
 app.use(cors({
