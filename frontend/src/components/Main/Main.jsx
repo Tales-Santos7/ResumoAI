@@ -50,51 +50,40 @@ function Main() {
   }
 
   async function getVideoTranscription(url) {
-    setLoading(true);
-    try {
-      setUrl(url);
+  setLoading(true);
+  try {
+    setUrl(url);
 
-      const response = await ApiFetch(
-        "POST",
-        "resume/summarizeText",
-        requestBody
-      );
+    const responseTranscription = await ApiFetch("POST", "resume/url", { url });
 
-      if (!response.success || !response.response?.candidates) {
-        console.log("Resposta inesperada:", response);
-        alert(
-          "A IA não conseguiu gerar um resumo. Tente novamente mais tarde."
-        );
-        return;
-      }
-
-      setTranscriptionText(response);
-
-      const IAResult = await getVideoSummary(response.text);
-
-      if (
-        !IAResult?.response?.candidates ||
-        !IAResult.response.candidates[0]?.content?.parts
-      ) {
-        console.log("Resposta inesperada da IA:", IAResult);
-        alert(
-          "A IA não conseguiu gerar um resumo. Tente novamente mais tarde."
-        );
-        return;
-      }
-
-      setVideoSummary(IAResult.response.candidates[0].content.parts);
-
-      navigate("/resumo");
-    } catch (error) {
-      console.error(error);
-      alert(
-        "Ocorreu um erro ao processar o vídeo. Verifique se ele possui transcrição automática."
-      );
-    } finally {
-      setLoading(false);
+    if (!responseTranscription.success || !responseTranscription.text) {
+      throw new Error(responseTranscription.msg || "Transcrição indisponível");
     }
+
+    setTranscriptionText(responseTranscription);
+
+    const IAResult = await getVideoSummary(responseTranscription.text);
+
+    if (
+      !IAResult?.response?.candidates ||
+      !IAResult.response.candidates[0]?.content?.parts
+    ) {
+      console.log("Resposta inesperada da IA:", IAResult);
+      alert("A IA não conseguiu gerar um resumo. Tente novamente mais tarde.");
+      return;
+    }
+
+    setVideoSummary(IAResult.response.candidates[0].content.parts);
+    navigate("/resumo");
+  } catch (error) {
+    console.error(error);
+    alert(
+      "Ocorreu um erro ao processar o vídeo. Verifique se ele possui transcrição automática."
+    );
+  } finally {
+    setLoading(false);
   }
+}
 
  async function getVideoSummary(text) {
   try {
