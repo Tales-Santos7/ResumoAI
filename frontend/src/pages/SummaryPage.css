@@ -1,0 +1,110 @@
+.SummaryPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.SummaryPage .main {
+  margin: 2em auto;
+  height: 100%;
+}
+
+.SummaryPage .main .content {
+  display: flex;
+  gap: 2em;
+}
+
+.SummaryPage .main > a {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  text-decoration: none;
+  color: var(--textColor);
+  font-weight: 500;
+}
+
+.SummaryPage .main .content .results {
+  display: flex;
+  gap: 1em;
+  margin: 1em 0;
+}
+
+.SummaryPage .main .content .results .option {
+  width: fit-content;
+  padding: 0.5em 1em;
+  background-color: var(--mainColor);
+  border-radius: 0.5em;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+}
+
+.SummaryPage .main .content .leftSide {
+  width: 60%;
+}
+
+.SummaryPage .main .content .leftSide .text {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-bottom: 2em;
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+
+.SummaryPage .main .content .leftSide .transcript {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  background-color: var(--color2);
+  padding: 1em 1.5em;
+  border-radius: 0.5em;
+}
+
+.SummaryPage .main .content .leftSide .transcript .transcriptPart {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.SummaryPage .main .content .leftSide .transcript .transcriptPart p {
+  font-size: 0.9em;
+}
+
+.SummaryPage .main .content .leftSide .transcript .transcriptPart p:first-of-type {
+  padding: 0.2em 0.4em;
+  background-color: var(--mainColor);
+  border-radius: 0.5em;
+  color: white;
+  font-family: "Questrial", sans-serif;
+}
+
+.SummaryPage .main .content iframe {
+  width: 40%;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+@media screen and (max-width: 768px) {
+  .SummaryPage .main .content {
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+
+  .SummaryPage .main .content .leftSide {
+    width: 100%;
+    padding-bottom: 4em;
+  }
+
+  .SummaryPage .main .content .leftSide .text {
+    overflow-y: visible;
+    max-height: none;
+  }
+
+  .SummaryPage .main .content iframe {
+    width: 100%;
+    margin-top: 1.5em;
+  }
+}
+

@@ -1,0 +1,87 @@
+.Main {
+  display: flex;
+  justify-content: center;
+  margin: 4em auto;
+}
+
+.Main .mainContainer {
+  width: 100%;
+  max-width: 600px;
+  background-color: white;
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Main .mainContainer h2 {
+  font-size: 2.5em;
+  font-weight: 600;
+  text-align: center;
+  color: var(--textColor);
+}
+
+.Main .mainContainer p {
+  text-align: center;
+  margin-top: 0.5em;
+  font-size: 1em;
+  color: var(--textLight);
+}
+
+.Main .mainContainer form {
+  width: 100%;
+  margin-top: 2em;
+}
+
+.Main .mainContainer form > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5em;
+  padding: 0 1em;
+  background-color: var(--color2);
+}
+
+.Main .mainContainer form > div svg {
+  color: var(--textLight);
+  font-size: 1.2em;
+}
+
+.Main .mainContainer form > div input {
+  height: 3em;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1em;
+  color: var(--textColor);
+}
+
+.Main .mainContainer form button {
+  display: block;
+  width: 100%;
+  padding: 1em;
+  margin-top: 1.5em;
+  font-weight: 600;
+  font-size: 1em;
+  border-radius: 0.5em;
+  border: none;
+  background-color: var(--mainColor);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.Main .mainContainer form button:hover {
+  background-color: #4F46E5;
+}
+
+@media screen and (max-width: 768px) {
+  .Main .mainContainer h2 {
+    font-size: 2em;
+  }
+}

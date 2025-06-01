@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --mainColor: #6366F1;
+  --color2: #F3F4F6;
+  --textColor: #111827;
+  --textLight: #4B5563;
+  --bgColor: #F9FAFB;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: var(--bgColor);
+  color: var(--textColor);
+}
+
+.container {
+  width: 96%;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+/* Estilo para Markdown */
+.markdown-body p {
+  margin: 0 0 1em;
+}
+
+.markdown-body li + li {
+  margin-top: 0.5em;
+}
+
+.markdown-body ol,
+.markdown-body ul {
+  margin: 1em 0;
+  padding-left: 1.25em;
+}
