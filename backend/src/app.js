@@ -12,13 +12,21 @@ app.use(express.json())
 
 // Middleware para resolver erro CORS
 
-app.use(cors({
-  origin: true, // Permitir qualquer origem
-  methods: ['GET', 'PUT', 'POST', 'DELETE'],
-  allowedHeaders: ['Content-Type'],
-  credentials: true, // Permitir credenciais
-}));
+const allowedOrigins = [
+  'http://localhost:5173',            // dev local
+  'https://resumoai.vercel.app',     // frontend Vercel (ajusta se for outro domínio)
+];
 
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Origem não permitida por CORS'));
+    }
+  },
+  credentials: true,
+}));
 
 app.get('/', (req, res) => {
     res.status(200).json("SERVIDOR OK")
