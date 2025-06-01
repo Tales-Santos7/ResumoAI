@@ -1,6 +1,6 @@
 O projeto gera resumos de videos no youtube usando Inteligencia Artificial. Através do Gemine em conjunto com o pacote "youtube-transcript" responsavél por extrair a transcrição do video
 
-#### HOME
+<!-- #### HOME
 ![home](Images/Home.png)
 
 ![resumo gerado por IA](Images/Resumo.png)
@@ -42,4 +42,4 @@ GEMINI_API_KEY = "SUA CHAVE DE ACESSO DO GEMINE"
 
 
 
-
+ -->
