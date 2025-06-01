@@ -9,13 +9,8 @@ import { useNavigate } from "react-router-dom";
 function Main() {
   const navigate = useNavigate();
 
-  const {
-    setTranscriptionText,
-    loading,
-    setLoading,
-    setVideoSummary,
-    setUrl,
-  } = useContext(SummaryContext);
+  const { setTranscriptionText, loading, setLoading, setVideoSummary, setUrl } =
+    useContext(SummaryContext);
 
   const [inputUrl, setInputUrl] = useState("");
   const [validURL, setValidURL] = useState(false);
