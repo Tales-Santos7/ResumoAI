@@ -53,11 +53,15 @@ export const SummarizeText = async (req, res) => {
     console.log("Tamanho do texto recebido:", text.length);
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-1.5-flash", // ou outro modelo compatível
       contents: [
         {
           role: "user",
-          parts: [textoLimitado],
+          parts: [
+            {
+              text: textoLimitado, // usa slice(0, 20000) antes
+            },
+          ],
         },
       ],
       generationConfig: { temperature: 0.3 },
