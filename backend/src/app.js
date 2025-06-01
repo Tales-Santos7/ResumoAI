@@ -13,12 +13,13 @@ app.use(express.json())
 // Middleware para resolver erro CORS
 
 const allowedOrigins = [
-  'http://localhost:5173',            // dev local
-  'https://resumo-ai.vercel.app/',     // frontend Vercel (ajusta se for outro domínio)
+  'http://localhost:5173',
+  'https://resumo-ai.vercel.app', // <- substitui se tiver domínio custom
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
+    console.log("Origem recebida:", origin);
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
