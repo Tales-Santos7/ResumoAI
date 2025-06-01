@@ -53,16 +53,19 @@ function Main() {
     setLoading(true);
     try {
       setUrl(url);
-      const responseJSON = await ApiFetch("POST", "resume/url", { url });
 
-      if (responseJSON.success === false) {
-        throw new Error("Erro ao se conectar à API");
-      }
+      const response = await ApiFetch(
+        "POST",
+        "resume/summarizeText",
+        requestBody
+      );
 
-      const response = await responseJSON.json();
-
-      if (!response.success || !response.text) {
-        throw new Error(response.msg || "Transcrição indisponível");
+      if (!response.success || !response.response?.candidates) {
+        console.log("Resposta inesperada:", response);
+        alert(
+          "A IA não conseguiu gerar um resumo. Tente novamente mais tarde."
+        );
+        return;
       }
 
       setTranscriptionText(response);
