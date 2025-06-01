@@ -102,17 +102,13 @@ function Main() {
         text: `Aqui está a transcrição de um vídeo no YouTube. Faça um resumo detalhado desse conteúdo:\n\n${text}`,
       };
 
-      const responseJSON = await ApiFetch(
+      const response = await ApiFetch(
         "POST",
         "resume/summarizeText",
         requestBody
       );
 
-      if (responseJSON.success === false) {
-        throw new Error("Erro ao se conectar à API");
-      }
-
-      return await responseJSON.json();
+      return response;
     } catch (error) {
       console.error(error);
       alert("Erro ao resumir o vídeo.");
