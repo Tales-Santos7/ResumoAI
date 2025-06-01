@@ -37,19 +37,20 @@ export const SummarizeText = async (req, res) => {
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+    const textoLimitado = text.slice(0, 20000); // corte para evitar erro
+
     const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
-      contents: text,
+      contents: textoLimitado,
       generationConfig: { temperature: 0.3 },
     });
 
-    // ✅ valida se a resposta tem o que esperamos
     const candidates = response?.candidates;
     if (!candidates || !candidates[0]?.content?.parts) {
+      console.error("Resposta inválida do Gemini:", response);
       return res.status(400).json({
         success: false,
         msg: "A IA não retornou um resumo válido.",
-        debug: response,
       });
     }
 
@@ -59,10 +60,11 @@ export const SummarizeText = async (req, res) => {
       response,
     });
   } catch (error) {
-    console.error("Erro na IA:", error.message);
+    console.error("Erro na IA:", error);
     return res.status(400).json({
       success: false,
       msg: "Falha ao tentar resumir texto",
+      error: error.message,
     });
   }
 };
