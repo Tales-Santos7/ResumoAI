@@ -28,12 +28,20 @@ function Main() {
   function cleanYouTubeUrl(url) {
     try {
       const u = new URL(url);
-      const videoId =
-        u.hostname === "youtu.be"
-          ? u.pathname.slice(1)
-          : u.searchParams.get("v");
+      let videoId = "";
+
+      if (u.hostname === "youtu.be") {
+        // pega o path depois da barra, antes do "?"
+        videoId = u.pathname.slice(1).split("?")[0];
+      } else if (u.hostname.includes("youtube.com")) {
+        videoId = u.searchParams.get("v");
+      }
+
+      if (!videoId) throw new Error("ID do vídeo não encontrado");
+
       return `https://www.youtube.com/watch?v=${videoId}`;
-    } catch {
+    } catch (err) {
+      console.warn("Erro ao limpar a URL:", err);
       return url;
     }
   }
@@ -50,59 +58,65 @@ function Main() {
   }
 
   async function getVideoTranscription(url) {
-  setLoading(true);
-  try {
-    setUrl(url);
+    setLoading(true);
+    try {
+      setUrl(url);
 
-    const responseTranscription = await ApiFetch("POST", "resume/url", { url });
+      const responseTranscription = await ApiFetch("POST", "resume/url", {
+        url,
+      });
 
-    if (!responseTranscription.success || !responseTranscription.text) {
-      throw new Error(responseTranscription.msg || "Transcrição indisponível");
+      if (!responseTranscription.success || !responseTranscription.text) {
+        throw new Error(
+          responseTranscription.msg || "Transcrição indisponível"
+        );
+      }
+
+      setTranscriptionText(responseTranscription);
+
+      const IAResult = await getVideoSummary(responseTranscription.text);
+
+      if (
+        !IAResult?.response?.candidates ||
+        !IAResult.response.candidates[0]?.content?.parts
+      ) {
+        console.log("Resposta inesperada da IA:", IAResult);
+        alert(
+          "A IA não conseguiu gerar um resumo. Tente novamente mais tarde."
+        );
+        return;
+      }
+
+      setVideoSummary(IAResult.response.candidates[0].content.parts);
+      navigate("/resumo");
+    } catch (error) {
+      console.error(error);
+      alert(
+        "Ocorreu um erro ao processar o vídeo. Verifique se ele possui transcrição automática."
+      );
+    } finally {
+      setLoading(false);
     }
+  }
 
-    setTranscriptionText(responseTranscription);
+  async function getVideoSummary(text) {
+    try {
+      const requestBody = {
+        text: `Aqui está a transcrição de um vídeo no YouTube. Faça um resumo detalhado desse conteúdo:\n\n${text}`,
+      };
 
-    const IAResult = await getVideoSummary(responseTranscription.text);
+      const response = await ApiFetch(
+        "POST",
+        "resume/summarizeText",
+        requestBody
+      );
 
-    if (
-      !IAResult?.response?.candidates ||
-      !IAResult.response.candidates[0]?.content?.parts
-    ) {
-      console.log("Resposta inesperada da IA:", IAResult);
-      alert("A IA não conseguiu gerar um resumo. Tente novamente mais tarde.");
-      return;
+      return response;
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao resumir o vídeo.");
     }
-
-    setVideoSummary(IAResult.response.candidates[0].content.parts);
-    navigate("/resumo");
-  } catch (error) {
-    console.error(error);
-    alert(
-      "Ocorreu um erro ao processar o vídeo. Verifique se ele possui transcrição automática."
-    );
-  } finally {
-    setLoading(false);
   }
-}
-
- async function getVideoSummary(text) {
-  try {
-    const requestBody = {
-      text: `Aqui está a transcrição de um vídeo no YouTube. Faça um resumo detalhado desse conteúdo:\n\n${text}`,
-    };
-
-    const response = await ApiFetch(
-      "POST",
-      "resume/summarizeText",
-      requestBody
-    );
-
-    return response;
-  } catch (error) {
-    console.error(error);
-    alert("Erro ao resumir o vídeo.");
-  }
-}
 
   return (
     <main className="Main container">
