@@ -96,24 +96,24 @@ function Main() {
     }
   }
 
-  async function getVideoSummary(text) {
-    try {
-      const requestBody = {
-        text: `Aqui está a transcrição de um vídeo no YouTube. Faça um resumo detalhado desse conteúdo:\n\n${text}`,
-      };
+ async function getVideoSummary(text) {
+  try {
+    const requestBody = {
+      text: `Aqui está a transcrição de um vídeo no YouTube. Faça um resumo detalhado desse conteúdo:\n\n${text}`,
+    };
 
-      const response = await ApiFetch(
-        "POST",
-        "resume/summarizeText",
-        requestBody
-      );
+    const response = await ApiFetch(
+      "POST",
+      "resume/summarizeText",
+      requestBody
+    );
 
-      return response;
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao resumir o vídeo.");
-    }
+    return response;
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao resumir o vídeo.");
   }
+}
 
   return (
     <main className="Main container">
