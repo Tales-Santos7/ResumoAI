@@ -68,7 +68,20 @@ function Main() {
       setTranscriptionText(response);
 
       const IAResult = await getVideoSummary(response.text);
+
+      if (
+        !IAResult?.response?.candidates ||
+        !IAResult.response.candidates[0]?.content?.parts
+      ) {
+        console.log("Resposta inesperada da IA:", IAResult);
+        alert(
+          "A IA não conseguiu gerar um resumo. Tente novamente mais tarde."
+        );
+        return;
+      }
+
       setVideoSummary(IAResult.response.candidates[0].content.parts);
+
       navigate("/resumo");
     } catch (error) {
       console.error(error);
