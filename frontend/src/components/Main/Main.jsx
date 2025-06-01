@@ -30,11 +30,22 @@ function Main() {
       const u = new URL(url);
       let videoId = "";
 
+      // Formato: youtu.be/VIDEO_ID
       if (u.hostname === "youtu.be") {
-        // pega o path depois da barra, antes do "?"
         videoId = u.pathname.slice(1).split("?")[0];
+
+        // Formato: youtube.com/watch?v=VIDEO_ID
       } else if (u.hostname.includes("youtube.com")) {
-        videoId = u.searchParams.get("v");
+        const vParam = u.searchParams.get("v");
+        if (vParam) {
+          videoId = vParam;
+        } else {
+          // Formatos: /embed/VIDEO_ID, /shorts/VIDEO_ID, /v/VIDEO_ID
+          const match = u.pathname.match(/^\/(?:embed|shorts|v)\/([^/?]+)/);
+          if (match) {
+            videoId = match[1];
+          }
+        }
       }
 
       if (!videoId) throw new Error("ID do vídeo não encontrado");
