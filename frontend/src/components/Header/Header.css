@@ -1,7 +1,13 @@
-.Header{
-    border-bottom: 1px solid gray;
+.Header {
+  border-bottom: 1px solid gray;
 }
 
-.Header .container{
-    margin: 1.5em auto;
+.Header .container {
+  margin: 1.5em auto;
 }
+/* 
+@media screen and (max-width: 500px) {
+  .container h2 {
+   
+  }
+} */

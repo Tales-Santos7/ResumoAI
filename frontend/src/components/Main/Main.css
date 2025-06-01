@@ -80,6 +80,11 @@
   background-color: #4F46E5;
 }
 
+.obs {
+  font-size: 13px !important;
+  color: #3b9503 !important;
+}
+
 @media screen and (max-width: 768px) {
   .Main .mainContainer h2 {
     font-size: 2em;

@@ -153,6 +153,7 @@ function Main() {
             {loading ? "Resumindo..." : "Resumir"}
           </button>
         </form>
+        <p className="obs">OBS.: Alguns vídeos não podem ser resumidos ou transcritos, ainda estamos em fase BETA.</p>
       </div>
     </main>
   );
