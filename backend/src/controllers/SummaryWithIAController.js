@@ -49,19 +49,15 @@ export const SummarizeText = async (req, res) => {
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-    const textoLimitado = text.slice(0, 20000); // corte para evitar erro
+    const textoLimitado = text.slice(0, 20000);
     console.log("Tamanho do texto recebido:", text.length);
 
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash", // ou outro modelo compatível
+      model: "gemini-1.5-flash",
       contents: [
         {
           role: "user",
-          parts: [
-            {
-              text: textoLimitado, // usa slice(0, 20000) antes
-            },
-          ],
+          parts: [textoLimitado], // ✅ Aqui está o ponto correto
         },
       ],
       generationConfig: { temperature: 0.3 },
