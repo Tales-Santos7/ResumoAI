@@ -93,8 +93,9 @@ a {
 .watermark {
   position: fixed;
   bottom: 10px;
-  right: 10px;
-  background-color: rgba(255,255,255,0.85);
+  left: 50%; /* centraliza */
+  transform: translateX(-50%); /* alinha ao centro */
+  background-color: rgba(255, 255, 255, 0.85);
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 0.5em 1em;
@@ -103,7 +104,7 @@ a {
   gap: 0.5em;
   font-size: 0.85em;
   z-index: 1000;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .watermark img {
