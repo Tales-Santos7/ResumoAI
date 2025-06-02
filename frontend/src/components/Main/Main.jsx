@@ -153,8 +153,17 @@ function Main() {
             {loading ? "Resumindo..." : "Resumir"}
           </button>
         </form>
-        <p className="obs">OBS.: Alguns vídeos não podem ser resumidos ou transcritos, ainda estamos em fase BETA.</p>
+        <p className="obs">
+          OBS.: Alguns vídeos não podem ser resumidos ou transcritos, ainda
+          estamos em fase BETA.
+        </p>
       </div>
+      <a href="https://talessantos-mu.vercel.app/" target="_blank">
+        <div className="watermark">
+          <img src="https://i.postimg.cc/qMk1TTKR/foto-tales.webp" alt="Criador" />
+          <span>By Tales Santos</span>
+        </div>
+      </a>
     </main>
   );
 }
