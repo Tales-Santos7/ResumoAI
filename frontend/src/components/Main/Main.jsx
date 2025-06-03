@@ -1,6 +1,6 @@
 import "./Main.css";
 import ApiFetch from "../../api/api";
-
+import { toast } from "react-toastify";
 import { FaLink } from "react-icons/fa";
 import { useState, useContext } from "react";
 import { SummaryContext } from "../../context/summaryContext";
@@ -30,17 +30,13 @@ function Main() {
       const u = new URL(url);
       let videoId = "";
 
-      // Formato: youtu.be/VIDEO_ID
       if (u.hostname === "youtu.be") {
         videoId = u.pathname.slice(1).split("?")[0];
-
-        // Formato: youtube.com/watch?v=VIDEO_ID
       } else if (u.hostname.includes("youtube.com")) {
         const vParam = u.searchParams.get("v");
         if (vParam) {
           videoId = vParam;
         } else {
-          // Formatos: /embed/VIDEO_ID, /shorts/VIDEO_ID, /v/VIDEO_ID
           const match = u.pathname.match(/^\/(?:embed|shorts|v)\/([^/?]+)/);
           if (match) {
             videoId = match[1];
@@ -60,10 +56,10 @@ function Main() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (loading) return; // evita múltiplas submissões
+    if (loading) return;
 
     if (!validURL) {
-      return alert("Insira uma URL válida do YouTube.");
+      return toast.error("Insira uma URL válida do YouTube.");
     }
 
     const cleanedUrl = cleanYouTubeUrl(inputUrl);
@@ -80,14 +76,19 @@ function Main() {
       });
 
       if (!responseTranscription.success) {
-        throw new Error(responseTranscription.msg || "Erro ao transcrever. Por favor tente novamente!!");
+        throw new Error(
+          responseTranscription.msg ||
+            "Erro ao transcrever. Por favor tente novamente!!"
+        );
       }
 
       if (
         !responseTranscription.text ||
         responseTranscription.text.length < 100
       ) {
-        throw new Error("Transcrição insuficiente para gerar resumo. Por favor tente novamente!!");
+        throw new Error(
+          "Transcrição insuficiente para gerar resumo. Por favor tente novamente!!"
+        );
       }
 
       setTranscriptionText(responseTranscription);
@@ -99,9 +100,7 @@ function Main() {
         !IAResult.response.candidates[0]?.content?.parts
       ) {
         console.log("Resposta inesperada da IA:", IAResult);
-        alert(
-          "A IA não conseguiu gerar um resumo. Tente novamente mais tarde."
-        );
+        toast.error("A IA não conseguiu gerar um resumo. Tente novamente mais tarde.");
         return;
       }
 
@@ -109,7 +108,9 @@ function Main() {
       navigate("/resumo");
     } catch (error) {
       console.error(error);
-      alert("Ocorreu um erro ao processar o vídeo. Por favor tente novamente!!");
+      toast.error(
+        "Ocorreu um erro ao processar o vídeo. Por favor tente novamente!!"
+      );
     } finally {
       setLoading(false);
     }
@@ -129,7 +130,7 @@ function Main() {
       return response;
     } catch (error) {
       console.error(error);
-      alert("Erro ao resumir o vídeo. Por favor tente novamente!!");
+      toast.error("Erro ao resumir o vídeo. Por favor tente novamente!!");
     }
   }
 
