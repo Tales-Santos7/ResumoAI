@@ -75,10 +75,9 @@ function Main() {
     try {
       setUrl(url);
 
-      const responseTranscriptionRaw = await ApiFetch("POST", "resume/url", {
+      const responseTranscription = await ApiFetch("POST", "resume/url", {
         url,
       });
-      const responseTranscription = await responseTranscriptionRaw.json();
 
       if (!responseTranscription.success || !responseTranscription.text) {
         throw new Error(
@@ -105,9 +104,7 @@ function Main() {
       navigate("/resumo");
     } catch (error) {
       console.error(error);
-      alert(
-        "Ocorreu um erro ao processar o vídeo. Verifique se ele possui transcrição automática."
-      );
+      alert("Ocorreu um erro ao processar o vídeo.");
     } finally {
       setLoading(false);
     }
@@ -119,12 +116,11 @@ function Main() {
         text: `Aqui está a transcrição de um vídeo no YouTube. Faça um resumo detalhado desse conteúdo:\n\n${text}`,
       };
 
-      const responseRaw = await ApiFetch(
+      const response = await ApiFetch(
         "POST",
         "resume/summarizeText",
         requestBody
       );
-      const response = await responseRaw.json();
       return response;
     } catch (error) {
       console.error(error);
