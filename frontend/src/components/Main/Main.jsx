@@ -79,10 +79,15 @@ function Main() {
         url,
       });
 
-      if (!responseTranscription.success || !responseTranscription.text) {
-        throw new Error(
-          responseTranscription.msg || "Transcrição indisponível"
-        );
+      if (!responseTranscription.success) {
+        throw new Error(responseTranscription.msg || "Erro ao transcrever. Por favor tente novamente!!");
+      }
+
+      if (
+        !responseTranscription.text ||
+        responseTranscription.text.length < 100
+      ) {
+        throw new Error("Transcrição insuficiente para gerar resumo. Por favor tente novamente!!");
       }
 
       setTranscriptionText(responseTranscription);
@@ -104,7 +109,7 @@ function Main() {
       navigate("/resumo");
     } catch (error) {
       console.error(error);
-      alert("Ocorreu um erro ao processar o vídeo.");
+      alert("Ocorreu um erro ao processar o vídeo. Por favor tente novamente!!");
     } finally {
       setLoading(false);
     }
@@ -124,7 +129,7 @@ function Main() {
       return response;
     } catch (error) {
       console.error(error);
-      alert("Erro ao resumir o vídeo.");
+      alert("Erro ao resumir o vídeo. Por favor tente novamente!!");
     }
   }
 
