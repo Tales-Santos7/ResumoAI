@@ -1,26 +1,26 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import './App.css'
-import HomePage from './pages/HomePage'
-import SummaryPage from './pages/SummaryPage'
+import "./App.css";
+import HomePage from "./pages/HomePage";
+import SummaryPage from "./pages/SummaryPage";
 
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/resumo' element={<SummaryPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/resumo" element={<SummaryPage />} />
         </Routes>
       </BrowserRouter>
 
       {/* ToastContainer pode ficar fora do BrowserRouter */}
       <ToastContainer
         position="top-right"
-        autoClose={3000}          // some após 3 segundos
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -28,9 +28,10 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        theme="colored" // <---- adiciona tema colorido
       />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
