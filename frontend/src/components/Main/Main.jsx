@@ -60,6 +60,8 @@ function Main() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    if (loading) return; // evita múltiplas submissões
+
     if (!validURL) {
       return alert("Insira uma URL válida do YouTube.");
     }
@@ -73,9 +75,10 @@ function Main() {
     try {
       setUrl(url);
 
-      const responseTranscription = await ApiFetch("POST", "resume/url", {
+      const responseTranscriptionRaw = await ApiFetch("POST", "resume/url", {
         url,
       });
+      const responseTranscription = await responseTranscriptionRaw.json();
 
       if (!responseTranscription.success || !responseTranscription.text) {
         throw new Error(
@@ -116,12 +119,12 @@ function Main() {
         text: `Aqui está a transcrição de um vídeo no YouTube. Faça um resumo detalhado desse conteúdo:\n\n${text}`,
       };
 
-      const response = await ApiFetch(
+      const responseRaw = await ApiFetch(
         "POST",
         "resume/summarizeText",
         requestBody
       );
-
+      const response = await responseRaw.json();
       return response;
     } catch (error) {
       console.error(error);
@@ -160,7 +163,10 @@ function Main() {
       </div>
       <a href="https://talessantos-mu.vercel.app/" target="_blank">
         <div className="watermark">
-          <img src="https://i.postimg.cc/qMk1TTKR/foto-tales.webp" alt="Criador" />
+          <img
+            src="https://i.postimg.cc/qMk1TTKR/foto-tales.webp"
+            alt="Criador"
+          />
           <span>By Tales Santos</span>
         </div>
       </a>
