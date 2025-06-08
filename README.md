@@ -6,7 +6,7 @@ O projeto **ResumoAI** gera resumos automáticos de vídeos do YouTube utilizand
 
 ### Captura do Projeto
 
-<img src="./Images/resumo.gif" alt="gif da tela inicial do projeto 'ResumoAI'">
+<img src="./img/resumo.gif" alt="gif da tela inicial do projeto 'ResumoAI'">
 
 ### Links
 
