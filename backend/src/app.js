@@ -13,8 +13,8 @@ app.use(express.json())
 // Middleware para resolver erro CORS
 
 const allowedOrigins = [
-  'https://resumoai-1.onrender.com',
   'https://resumo-ai.vercel.app',
+  'https://resumoai-1.onrender.com',
 ];
 
 app.use(cors({
