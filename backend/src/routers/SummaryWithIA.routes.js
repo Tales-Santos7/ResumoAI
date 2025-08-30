@@ -4,7 +4,7 @@ import { Transcript, SummarizeText } from '../controllers/SummaryWithIAControlle
 
 const SummaryWithIARouter = express.Router()
 
-SummaryWithIARouter.post("/url", Transcript)
+SummaryWithIARouter.post("/resume/summarizeText", Transcript)
 SummaryWithIARouter.post("/summarizeText", SummarizeText)
 
 export default SummaryWithIARouter

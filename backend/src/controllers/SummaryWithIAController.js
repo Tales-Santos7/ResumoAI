@@ -14,56 +14,6 @@ function normalizeYoutubeUrl(url) {
   return `https://www.youtube.com/watch?v=${videoId}`;
 }
 
-export const Transcript = async (req, res) => {
-  console.log("Recebido do front:", req.body);
-
-  try {
-    const { url } = req.body;
-    if (!url) {
-      return res.status(400).json({ success: false, msg: "Informe a URL do vídeo." });
-    }
-
-    // Normaliza a URL
-    const fixedUrl = normalizeYoutubeUrl(url);
-
-    // Busca a transcrição
-    const transcript = await YoutubeTranscript.fetchTranscript(fixedUrl);
-
-    if (!transcript || transcript.length === 0) {
-      return res.status(400).json({
-        success: false,
-        msg: "Não foi encontrada nenhuma transcrição para este vídeo.",
-      });
-    }
-
-    const text = transcript.map(t => t.text).join(" ");
-
-    return res.status(200).json({
-      success: true,
-      msg: "Sucesso ao extrair transcrição",
-      url: fixedUrl,
-      text,
-      transcript
-    });
-
-  } catch (error) {
-    console.error("Erro ao extrair transcrição:", error.message);
-
-    let msg = "Não foi possível obter a transcrição.";
-    if (error.message.includes("No transcript available")) {
-      msg = "Este vídeo não tem transcrição disponível (legendas automáticas desativadas).";
-    } else if (error.message.includes("Video unavailable")) {
-      msg = "O vídeo não existe, está privado ou foi removido.";
-    }
-
-    return res.status(400).json({
-      success: false,
-      msg,
-      error: error.message
-    });
-  }
-};
-
 export const SummarizeText = async (req, res) => {
   try {
     const { text } = req.body;
