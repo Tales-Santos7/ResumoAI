@@ -4,28 +4,29 @@ import { GoogleGenAI } from "@google/genai"; // Importa o SDK
 
 // 🔹 Função utilitária para normalizar URL curta do YouTube
 function normalizeYoutubeUrl(url) {
+  let videoId = null;
   if (url.includes("youtu.be/")) {
-    const videoId = url.split("youtu.be/")[1].split("?")[0];
-    return `https://www.youtube.com/watch?v=${videoId}`;
+    videoId = url.split("youtu.be/")[1].split(/[?&]/)[0];
+  } else if (url.includes("youtube.com/watch?v=")) {
+    videoId = url.split("v=")[1].split(/[?&]/)[0];
   }
-  return url;
+  if (!videoId) throw new Error("URL do YouTube inválida");
+  return `https://www.youtube.com/watch?v=${videoId}`;
 }
 
 export const Transcript = async (req, res) => {
+  console.log("Recebido do front:", req.body);
+
   try {
     const { url } = req.body;
-
     if (!url) {
-      return res.status(400).json({
-        success: false,
-        msg: "Informe a URL do vídeo.",
-      });
+      return res.status(400).json({ success: false, msg: "Informe a URL do vídeo." });
     }
 
-    // 🔹 Garante que a URL está no formato compatível
+    // Normaliza a URL
     const fixedUrl = normalizeYoutubeUrl(url);
 
-    // 🔹 Extraindo transcrição do vídeo
+    // Busca a transcrição
     const transcript = await YoutubeTranscript.fetchTranscript(fixedUrl);
 
     if (!transcript || transcript.length === 0) {
@@ -35,18 +36,18 @@ export const Transcript = async (req, res) => {
       });
     }
 
-    // 🔹 Junta o array em um único texto
-    const text = transcript.map((item) => item.text).join(" ");
+    const text = transcript.map(t => t.text).join(" ");
 
     return res.status(200).json({
       success: true,
       msg: "Sucesso ao extrair transcrição",
       url: fixedUrl,
       text,
-      transcript,
+      transcript
     });
+
   } catch (error) {
-    console.error("Erro ao extrair transcrição:", error);
+    console.error("Erro ao extrair transcrição:", error.message);
 
     let msg = "Não foi possível obter a transcrição.";
     if (error.message.includes("No transcript available")) {
@@ -58,7 +59,7 @@ export const Transcript = async (req, res) => {
     return res.status(400).json({
       success: false,
       msg,
-      error: error.message,
+      error: error.message
     });
   }
 };
