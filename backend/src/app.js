@@ -13,14 +13,14 @@ app.use(express.json())
 // Middleware para resolver erro CORS
 
 const allowedOrigins = [
-  'https://resumoai-1.onrender.com/',
-  'https://resumo-ai.vercel.app/',
+  'https://resumoai-1.onrender.com',
+  'https://resumo-ai.vercel.app',
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
     console.log("Origem recebida:", origin);
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
       callback(null, true);
     } else {
       callback(new Error('Origem não permitida por CORS'));
