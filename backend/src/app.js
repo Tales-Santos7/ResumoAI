@@ -13,8 +13,8 @@ app.use(express.json())
 // Middleware para resolver erro CORS
 
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://resumo-ai.vercel.app', // <- substitui se tiver domínio custom
+  'https://resumo-ai.vercel.app/',
+  'https://resumoai-1.onrender.com/',
 ];
 
 app.use(cors({
