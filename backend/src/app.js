@@ -20,14 +20,19 @@ const allowedOrigins = [
 app.use(cors({
   origin: function (origin, callback) {
     console.log("Origem recebida:", origin);
-    if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Origem não permitida por CORS'));
     }
   },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// Isto responde automaticamente a qualquer preflight
+app.options("*", cors());
 
 app.get('/', (req, res) => {
     res.status(200).json("SERVIDOR OK")
