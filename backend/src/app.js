@@ -12,20 +12,8 @@ app.use(express.json())
 
 // Middleware para resolver erro CORS
 
-const allowedOrigins = [
-  'https://resumo-ai.vercel.app',
-  'https://resumoai-1.onrender.com',
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    console.log("Origem recebida:", origin);
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Origem não permitida por CORS'));
-    }
-  },
+  origin: "*", // Permite qualquer origem
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
