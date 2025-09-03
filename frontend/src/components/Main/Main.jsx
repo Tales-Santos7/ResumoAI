@@ -1,179 +1,115 @@
-import "./Main.css";
-import ApiFetch from "../../api/api";
-import { toast } from "react-toastify";
+import './Main.css'
+import ApiFetch from '../../api/api';
+
 import { FaLink } from "react-icons/fa";
-import { useState, useContext } from "react";
-import { SummaryContext } from "../../context/summaryContext";
-import { useNavigate } from "react-router-dom";
+
+import { useState, useContext } from 'react';
+import { SummaryContext } from '../../context/summaryContext';
+import { useNavigate } from 'react-router-dom';
 
 function Main() {
-  const navigate = useNavigate();
 
-  const { setTranscriptionText, loading, setLoading, setVideoSummary, setUrl } =
-    useContext(SummaryContext);
+  const navigate = useNavigate()
 
-  const [inputUrl, setInputUrl] = useState("");
-  const [validURL, setValidURL] = useState(false);
+  const {setTranscriptionText, loading, setLoading, setVideoSummary, setUrl} = useContext(SummaryContext)
 
-  function inputValue(url) {
-    setInputUrl(url);
-    checkURL(url);
+  const [InputUrl, setInputUrl] = useState()
+  const [validURL, setValidURL] = useState(false)
+
+  function inputValue(URL){
+    setInputUrl(URL)
+    checkURL(URL)
   }
 
-  function checkURL(url) {
-    const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
-    setValidURL(regex.test(url));
-  }
-
-  function cleanYouTubeUrl(url) {
-    try {
-      const u = new URL(url);
-      let videoId = "";
-
-      if (u.hostname === "youtu.be") {
-        videoId = u.pathname.slice(1).split("?")[0];
-      } else if (u.hostname.includes("youtube.com")) {
-        const vParam = u.searchParams.get("v");
-        if (vParam) {
-          videoId = vParam;
-        } else {
-          const match = u.pathname.match(/^\/(?:embed|shorts|v)\/([^/?]+)/);
-          if (match) {
-            videoId = match[1];
-          }
-        }
-      }
-
-      if (!videoId) throw new Error("ID do vídeo não encontrado");
-
-      return `https://www.youtube.com/watch?v=${videoId}`;
-    } catch (err) {
-      console.warn("Erro ao limpar a URL:", err);
-      return url;
+  function checkURL(URL){
+    if(URL.includes("https") && URL.includes("youtu")){
+      setValidURL(true)
+    } else{
+      setValidURL(false)
     }
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(e){
+    e.preventDefault()
 
-    if (loading) return;
-
-    if (!validURL) {
-      return toast.error("Insira uma URL válida do YouTube.");
+    if(validURL == false){
+      return alert("Insira uma url válida")
     }
 
-    const cleanedUrl = cleanYouTubeUrl(inputUrl);
-    getVideoTranscription(cleanedUrl);
+    getVideoTranscription()
   }
 
-  async function getVideoTranscription(url) {
-    setLoading(true);
+  async function getVideoTranscription(){
+    setLoading(true)
     try {
-      setUrl(url);
 
-      const responseTranscription = await ApiFetch("POST", "resume/url", {
-        url,
-      });
+      setUrl(InputUrl)
+      const requestBody = {url: InputUrl}
 
-      if (!responseTranscription.success) {
-        throw new Error(
-          responseTranscription.msg ||
-            "Erro ao transcrever. Por favor tente novamente!!"
-        );
+      const responseJSON = await ApiFetch('POST', 'resume/url', requestBody)
+
+      if(responseJSON.success == false){
+        setLoading(false)
+        return alert("Erro ao se conectar a Api")
       }
 
-      if (
-        !responseTranscription.text ||
-        responseTranscription.text.length < 100
-      ) {
-        throw new Error(
-          "Transcrição insuficiente para gerar resumo. Por favor tente novamente!!"
-        );
+      const response = await responseJSON.json()
+
+      if(response.success !== true){
+        setLoading(false)
+        return alert(response.msg)
       }
 
-      setTranscriptionText(responseTranscription);
-
-      const IAResult = await getVideoSummary(responseTranscription.text);
-
-      if (
-        !IAResult?.response?.candidates ||
-        !IAResult.response.candidates[0]?.content?.parts
-      ) {
-        console.log("Resposta inesperada da IA:", IAResult);
-        toast.error("A IA não conseguiu gerar um resumo. Tente novamente mais tarde.");
-        return;
+      if(!response.text){
+        return alert("Não foi possivel extrair a transcrição do video, tente novamente")
       }
 
-      setVideoSummary(IAResult.response.candidates[0].content.parts);
-      navigate("/resumo");
+      setTranscriptionText(response)
+      const IAResult = await getVideoSummary(response.text)
+      setVideoSummary(IAResult.response.candidates[0].content.parts)
+      navigate("/resumo")
+
     } catch (error) {
-      console.error(error);
-      toast.error(
-        "Ocorreu um erro ao processar o vídeo. Por favor tente novamente!!"
-      );
-    } finally {
-      setLoading(false);
+      console.log(error)
+      alert("Erro ao obter transcrição do video")
     }
+    setLoading(false)
   }
 
-  async function getVideoSummary(text) {
+  async function getVideoSummary(text){
     try {
-      const requestBody = {
-        text: `Aqui está a transcrição de um vídeo no YouTube. Faça um resumo detalhado desse conteúdo:\n\n${text}`,
-      };
+      const requestBody = {text: `Aqui está a transcrição de um video no youtube, faça o resumo detalhado desse video: ${text}`}
+      const responseJSON = await ApiFetch('POST', 'resume/summarizeText', requestBody)
 
-      const response = await ApiFetch(
-        "POST",
-        "resume/summarizeText",
-        requestBody
-      );
-      return response;
+      if(responseJSON.success == false){
+        setLoading(false)
+        return alert("Erro ao se conectar a Api")
+      }
+
+      const response = await responseJSON.json()
+      return response
+      
     } catch (error) {
-      console.error(error);
-      toast.error("Erro ao resumir o vídeo. Por favor tente novamente!!");
+      console.log(error)
+      alert("Erro ao obter resumir video")
     }
   }
 
   return (
-    <main className="Main container">
-      <div className="mainContainer">
-        <h2>Resumos com IA</h2>
-        <p>Resuma vídeos do YouTube em segundos</p>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <FaLink />
-            <input
-              type="text"
-              placeholder="Cole a URL do vídeo do YouTube aqui"
-              value={inputUrl}
-              onChange={(e) => inputValue(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            style={validURL ? { backgroundColor: "var(--mainColor)" } : {}}
-            disabled={loading}
-          >
-            {loading ? "Resumindo..." : "Resumir"}
-          </button>
-        </form>
-        <p className="obs">
-          OBS.: Alguns vídeos não podem ser resumidos ou transcritos, ainda
-          estamos em fase BETA.
-        </p>
-      </div>
-      <a href="https://talessantos-mu.vercel.app/" target="_blank">
-        <div className="watermark">
-          <img
-            src="https://i.postimg.cc/qMk1TTKR/foto-tales.webp"
-            alt="Criador"
-          />
-          <span>By Tales Santos</span>
+    <main className='Main container'>
+        <div className='mainContainer'>
+            <h2>Resumos com IA</h2>
+            <p>Resuma vídeos do YouTube em segundos</p>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <FaLink />
+                    <input type="text" placeholder='Cole a url do vídeo do Youtube aqui' required onChange={(e) => {inputValue(e.target.value)}}/>
+                </div>
+                <button type='submit' style={validURL ? {backgroundColor: "var(--mainColor)"} : {}}>{loading ? "Resumindo..." : "Resumir"}</button>
+            </form>
         </div>
-      </a>
     </main>
-  );
+  )
 }
 
-export default Main;
+export default Main
