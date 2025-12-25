@@ -10,10 +10,10 @@ O projeto combina **Node.js** no backend com **ReactJS** no frontend, utilizando
 ### Captura do projeto
 
 #### Página inicial
-<img src="images/resumo1.gif" alt="gif da página inicial do ResumoAI">
+<img src="Images/resumo1.gif" alt="gif da página inicial do ResumoAI">
 
 #### Página de resumo
-<img src="images/resumo2.gif" alt="gif da página de resumo do ResumoAI">
+<img src="Images/resumo2.gif" alt="gif da página de resumo do ResumoAI">
 
 ### Links
 
