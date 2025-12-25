@@ -1,45 +1,70 @@
-O projeto gera resumos de videos no youtube usando Inteligencia Artificial. Através do Gemine em conjunto com o pacote "youtube-transcript" responsavél por extrair a transcrição do video
+# 🤖 ResumoAI
 
-#### HOME
-![home](Images/Home.png)
+O **ResumoAI** é um projeto web que gera **transcrições automáticas** e **resumos organizados** de vídeos do YouTube.  
+Basta colar o link do vídeo para obter rapidamente um resumo claro, estruturado e pronto para leitura.
 
-![resumo gerado por IA](Images/Resumo.png)
+O projeto combina **Node.js** no backend com **ReactJS** no frontend, utilizando a API do **[YouTube-Transcript](https://www.youtube-transcript.io/)** para extração de legendas e a API do **[Gemini](https://ai.google.dev/gemini-api/docs/api-key?hl=pt-br)** formatação do resumo.
 
-![transcrição do video](Images/Transcricao.png)
+## Visão geral
 
-### Inicializando projeto
+### Captura do projeto
 
-Navegue até a parta "frontend" e execute o comando
+#### Página inicial
+<img src="images/resumo1.gif" alt="gif da página inicial do ResumoAI">
 
-```bash
-npm install
-```
+#### Página de resumo
+<img src="images/resumo2.gif" alt="gif da página de resumo do ResumoAI">
 
-*Faça o mesmo na pasta "backend"
+### Links
 
-### Executando projeto
+* URL do site ativo: *(em breve)*
+  
+## Sobre esse Projeto
 
-Para executar tando o backend quanto o frontend usamos o comando
+• <strong>Transcrição automática</strong>: Extrai legendas de vídeos do YouTube automaticamente.  
+• <strong>Resumo estruturado</strong>: Gera introdução, pontos principais e conclusão.  
+• <strong>Uso de IA</strong>: O resumo é criado pela IA com base na transcrição obtida do YouTube Transcript.  
+• <strong>Alternância de visualização</strong>: Permite visualizar resumo ou transcrição completa.  
+• <strong>Player integrado</strong>: O vídeo é exibido diretamente na página de resultado.  
+• <strong>Responsivo</strong>: Funciona bem em desktop e dispositivos móveis.  
 
-```bash
-npm run dev
-```
+> O projeto não depende exclusivamente da IA, apenas para a estruturação do resumo.
 
-### .env client
-Crie o arquivo .env na pasta "frontend" seguindo o modelo abaixo
+### Construído com
 
-```bash
-VITE_BACKEND_BASE_URL = "A URL PADRÂO DO SEU BACKEND (http://localhost:8000)"
-```
+<div style="display: inline_block"><br>
 
-### .env backend
-Crie o arquivo .env na pasta "backend" seguindo o modelo abaixo
+<img title="JavaScript" align="center" height="40" width="40" src="https://skillicons.dev/icons?i=javascript" alt="JavaScript">
+<img title="Node.js" align="center" height="40" width="40" src="https://skillicons.dev/icons?i=nodejs" alt="Node.js">
+<img title="Express" align="center" height="40" width="40" src="https://skillicons.dev/icons?i=express" alt="Express">
+<img title="ReactJs" align="center" height="40" width="40" src="https://skillicons.dev/icons?i=react" alt="ReactJs">
+<img title="Vite" align="center" height="40" width="40" src="https://skillicons.dev/icons?i=vite" alt="Vite">
+<img title="Gemini" align="center" height="40" width="40" src="https://static.vecteezy.com/system/resources/previews/055/687/063/non_2x/circle-gemini-google-icon-symbol-logo-free-png.png" alt="Gemini">
+<img title="CSS" align="center" height="40" width="40" src="https://skillicons.dev/icons?i=css" alt="CSS">
 
-```bash
-GEMINI_API_KEY = "SUA CHAVE DE ACESSO DO GEMINE"
-```
+</div>
 
+## Outros
 
+### Observações
 
+• Nem todos os vídeos possuem legendas disponíveis  
+• Vídeos muito curtos podem gerar resumos incompletos  
+• Projeto em fase <strong>BETA</strong>
 
+### Minhas redes sociais
 
+<div> 
+   <a href="https://instagram.com/tales.s7" target="_blank">
+     <img src="https://img.shields.io/badge/-Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white">
+   </a>
+   <a href="https://www.linkedin.com/in/tales-santos7" target="_blank">
+     <img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white">
+   </a>
+   <a href="mailto:tales.js07@gmail.com">
+     <img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white">
+   </a>
+   <a href="https://talessantos-mu.vercel.app/" target="_blank">
+     <img src="https://img.shields.io/badge/-Portf%C3%B3lio-Ffa500?style=for-the-badge&logo=portfolio&logoColor=white">
+   </a>
+</div>

@@ -1,6 +1,5 @@
 import express from 'express'
-import { Transcript, SummarizeText } from '../controllers/SummaryWithIAController.js'
-
+import { Transcript, SummarizeText } from '../controllers/SummaryWithIAController.js';
 
 const SummaryWithIARouter = express.Router()
 

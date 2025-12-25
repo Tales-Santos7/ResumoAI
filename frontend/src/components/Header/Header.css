@@ -1,7 +1,30 @@
-.Header{
-    border-bottom: 1px solid gray;
+.Header {
+  border-bottom: 1px solid gray;
 }
 
-.Header .container{
-    margin: 1.5em auto;
+.container {
 }
+
+.Header .container {
+  margin: 1.5em auto;
+}
+ 
+.nav-titulo {
+  margin-left: 80px;
+}
+
+.icones {
+  margin-top: -1em;
+  float: right;
+  display: flex;
+  gap: 20px;
+  font-size: 2rem;
+  margin-right: 80px;
+}
+
+/* 
+@media screen and (max-width: 500px) {
+  .container h2 {
+   
+  }
+} */

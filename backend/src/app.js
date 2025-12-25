@@ -1,29 +1,25 @@
-import express from 'express'
-import cors from 'cors'
-import connectDB from './config/db.js'
-import SummaryWithIARouter from './routers/SummaryWithIA.routes.js'
+import dotenv from "dotenv";
+dotenv.config();
+import express from 'express';
+import cors from 'cors';
+import SummaryWithIARouter from './routers/SummaryWithIA.routes.js';
 
-const app = express()
+const app = express();
 
-//Conecta ao banco de dados
-// connectDB()
+app.use(express.json());
 
-app.use(express.json())
-
-// Middleware para resolver erro CORS
-
+// ✅ CORS aberto (funciona local e deploy)
 app.use(cors({
-  origin: true, // Permitir qualquer origem
-  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type'],
-  credentials: true, // Permitir credenciais
+  credentials: true,
 }));
 
-
 app.get('/', (req, res) => {
-    res.status(200).json("SERVIDOR OK")
-})
+  res.status(200).json("SERVIDOR OK");
+});
 
-app.use('/resume', SummaryWithIARouter)
+app.use('/resume', SummaryWithIARouter);
 
-export default app
+export default app;
