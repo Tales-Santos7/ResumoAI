@@ -17,7 +17,7 @@ O projeto combina **Node.js** no backend com **ReactJS** no frontend, utilizando
 
 ### Links
 
-* URL do site ativo: *(em breve)*
+* URL do site ativo: **https://resumo-ai.vercel.app/**
   
 ## Sobre esse Projeto
 
