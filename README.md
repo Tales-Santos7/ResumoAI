@@ -23,7 +23,7 @@ O projeto combina **Node.js** no backend com **ReactJS** no frontend, utilizando
 
 • <strong>Transcrição automática</strong>: Extrai legendas de vídeos do YouTube automaticamente.  
 • <strong>Resumo estruturado</strong>: Gera introdução, pontos principais e conclusão.  
-• <strong>Uso de IA</strong>: O resumo é criado pela IA com base na transcrição obtida do YouTube Transcript.  
+• <strong>Uso de IA + consumo de API externa</strong>: O resumo é criado pela IA com base na transcrição obtida do YouTube Transcript.  
 • <strong>Alternância de visualização</strong>: Permite visualizar resumo ou transcrição completa.  
 • <strong>Player integrado</strong>: O vídeo é exibido diretamente na página de resultado.  
 • <strong>Responsivo</strong>: Funciona bem em desktop e dispositivos móveis.  
