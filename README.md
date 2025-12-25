@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# 🤖 ResumoAI
+# ResumoAI
 
 O **ResumoAI** é um projeto web que gera **transcrições automáticas** e **resumos organizados** de vídeos do YouTube.  
 Basta colar o link do vídeo para obter rapidamente um resumo claro, estruturado e pronto para leitura.
