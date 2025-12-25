@@ -68,6 +68,3 @@ O projeto combina **Node.js** no backend com **ReactJS** no frontend, utilizando
      <img src="https://img.shields.io/badge/-Portf%C3%B3lio-Ffa500?style=for-the-badge&logo=portfolio&logoColor=white">
    </a>
 </div>
-=======
-O projeto gera resumos de videos no youtube usando Inteligencia Artificial. Através do Gemine em conjunto com o pacote "youtube-transcript" responsavél por extrair a transcrição do video
->>>>>>> 90e216056441d2bfb11dfaca61b5f63814f1a20d
