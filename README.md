@@ -5,6 +5,8 @@ Basta colar o link do vídeo para obter rapidamente um resumo claro, estruturado
 
 O projeto combina **Node.js** no backend com **ReactJS** no frontend, utilizando a API do **[YouTube-Transcript](https://www.youtube-transcript.io/)** para extração de legendas e a API do **[Gemini](https://ai.google.dev/gemini-api/docs/api-key?hl=pt-br)** formatação do resumo.
 
+> Releitura do projeto do @TiagoViniciusDev: https://github.com/TiagoViniciusDev/Resumo-Rapido
+
 ## Visão geral
 
 ### Captura do projeto
