@@ -1,30 +1,35 @@
-<<<<<<< HEAD
-# 🤖 ResumoAI
+# ResumoAI
 
 O **ResumoAI** é um projeto web que gera **transcrições automáticas** e **resumos organizados** de vídeos do YouTube.  
 Basta colar o link do vídeo para obter rapidamente um resumo claro, estruturado e pronto para leitura.
 
 O projeto combina **Node.js** no backend com **ReactJS** no frontend, utilizando a API do **[YouTube-Transcript](https://www.youtube-transcript.io/)** para extração de legendas e a API do **[Gemini](https://ai.google.dev/gemini-api/docs/api-key?hl=pt-br)** formatação do resumo.
 
+### Créditos
+
+Este projeto é uma releitura baseada no projeto  
+**Resumo-Rápido**, criado por  
+[@TiagoViniciusDev](https://github.com/TiagoViniciusDev).
+
 ## Visão geral
 
 ### Captura do projeto
 
 #### Página inicial
-<img src="images/resumo1.gif" alt="gif da página inicial do ResumoAI">
+<img src="Images/resumo1.gif" alt="gif da página inicial do ResumoAI">
 
 #### Página de resumo
-<img src="images/resumo2.gif" alt="gif da página de resumo do ResumoAI">
+<img src="Images/resumo2.gif" alt="gif da página de resumo do ResumoAI">
 
 ### Links
 
-* URL do site ativo: *(em breve)*
+* URL do site ativo: **https://resumo-ai.vercel.app/**
   
 ## Sobre esse Projeto
 
 • <strong>Transcrição automática</strong>: Extrai legendas de vídeos do YouTube automaticamente.  
 • <strong>Resumo estruturado</strong>: Gera introdução, pontos principais e conclusão.  
-• <strong>Uso de IA</strong>: O resumo é criado pela IA com base na transcrição obtida do YouTube Transcript.  
+• <strong>Uso de IA + consumo de API externa</strong>: O resumo é criado pela IA com base na transcrição obtida do YouTube Transcript.  
 • <strong>Alternância de visualização</strong>: Permite visualizar resumo ou transcrição completa.  
 • <strong>Player integrado</strong>: O vídeo é exibido diretamente na página de resultado.  
 • <strong>Responsivo</strong>: Funciona bem em desktop e dispositivos móveis.  
@@ -69,6 +74,3 @@ O projeto combina **Node.js** no backend com **ReactJS** no frontend, utilizando
      <img src="https://img.shields.io/badge/-Portf%C3%B3lio-Ffa500?style=for-the-badge&logo=portfolio&logoColor=white">
    </a>
 </div>
-=======
-O projeto gera resumos de videos no youtube usando Inteligencia Artificial. Através do Gemine em conjunto com o pacote "youtube-transcript" responsavél por extrair a transcrição do video
->>>>>>> 90e216056441d2bfb11dfaca61b5f63814f1a20d
