@@ -134,7 +134,7 @@ function Main() {
     <main className="Main container">
       <div className="mainContainer">
         <h2>Resumos com IA</h2>
-        <p>Resuma vídeos do YouTube em segundos</p>
+        <p>Resuma ou transcreva vídeos do YouTube em segundos</p>
         <form onSubmit={handleSubmit}>
           <div>
             <FaLink />
@@ -155,8 +155,7 @@ function Main() {
           </button>
         </form>
         <p className="obs">
-          OBS.: Alguns vídeos não podem ser resumidos ou transcritos, ainda
-          estamos em fase BETA.
+          OBS.: Existem alguns vídeos que não podem ser resumidos ou transcritos.
         </p>
       </div>
       <a href="https://talessantos-mu.vercel.app/" target="_blank">
