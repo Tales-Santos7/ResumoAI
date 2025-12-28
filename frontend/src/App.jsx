@@ -17,7 +17,6 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      {/* ToastContainer pode ficar fora do BrowserRouter */}
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -28,7 +27,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="colored" // <---- adiciona tema colorido
+        theme="colored"
       />
     </div>
   );

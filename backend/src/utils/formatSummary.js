@@ -1,26 +1,26 @@
 export function formatSummary(text) {
   if (!text) return "";
 
-  // 1️⃣ Normalização
+  // Normalização
   let clean = text
     .replace(/\n+/g, " ")
     .replace(/\s+/g, " ")
     .replace(/\b(é|né|tipo|mano|cara|pô|tá|cê|assim|então)\b/gi, "")
     .trim();
 
-  // 2️⃣ Quebra em frases
+  // Quebra em frases
   const sentences =
     clean.match(/[^.!?]+[.!?]+/g) || [];
 
   if (sentences.length === 0) return clean;
 
-  // 3️⃣ Introdução (primeiras ideias)
+  // Introdução
   const intro = sentences.slice(0, 3).join(" ");
 
-  // 4️⃣ Bloco principal (meio do vídeo)
+  // Bloco principal
   const middle = sentences.slice(3, 12);
 
-  // 5️⃣ Conclusão (final do vídeo)
+  // Conclusão
   const conclusion = sentences.slice(-3).join(" ");
 
   // 6️⃣ Montagem final

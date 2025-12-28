@@ -66,8 +66,6 @@ function Main() {
     getVideoTranscription(cleanedUrl);
   }
 
- // ... dentro de Main.jsx
-
   async function getVideoTranscription(url) {
     setLoading(true);
     try {
@@ -94,7 +92,6 @@ function Main() {
       const IAResult = await getVideoSummary(responseTranscription.text);
       //console.log("Resultado do Resumo:", IAResult);
 
-      // Verificamos se houve sucesso e se existe o campo 'summary' (string)
      if (!IAResult.success || !IAResult.summary) {
         toast.error(
           IAResult.msg || "A IA não conseguiu gerar um resumo. Tente novamente."
@@ -102,7 +99,6 @@ function Main() {
         return;
       }
 
-      // Salvamos o texto do resumo diretamente
       setVideoSummary(IAResult.summary);
       navigate("/resumo");
 

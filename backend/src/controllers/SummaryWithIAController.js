@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { formatSummary } from "../utils/formatSummary.js";
-import fetch from "node-fetch"; // garante compatibilidade em Node.js
+import fetch from "node-fetch";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -29,7 +29,6 @@ function getVideoIdFromUrl(url) {
   }
 }
 
-// 🔹 NOVA VERSÃO: usa API externa (YouTube Scribe)
 async function getVideoTranscript(videoId) {
   try {
     const response = await fetch(
@@ -53,14 +52,12 @@ async function getVideoTranscript(videoId) {
     const data = await response.json();
    // console.log("Resposta bruta da API:", data);
 
-    // ✅ A API retorna um ARRAY
     const item = data?.[0];
 
     if (!item?.text || item.text.trim().length === 0) {
       throw new Error("Nenhuma transcrição retornada pela API externa");
     }
 
-    // ✅ Texto já vem pronto
     return item.text;
   } catch (error) {
     console.error("Erro ao obter transcrição via API externa:", error);
@@ -118,7 +115,6 @@ export const SummarizeText = async (req, res) => {
       });
     }
 
-    // Limite de segurança (evita erro por texto gigante)
     const MAX_CHARS = 15000;
     const safeText = text.slice(0, MAX_CHARS);
 
