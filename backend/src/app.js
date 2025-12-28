@@ -17,7 +17,8 @@ app.use(cors({
 }));
 
 app.get('/', (req, res) => {
-  res.status(200).json("SERVIDOR OK");
+  res.status(200).json("SERVIDOR OK.");
+  res.status(200).json("RODANDO EM https://resumo-ai.vercel.app/");
 });
 
 app.use('/resume', SummaryWithIARouter);
