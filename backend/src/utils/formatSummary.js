@@ -23,16 +23,15 @@ export function formatSummary(text) {
   // Conclusão
   const conclusion = sentences.slice(-3).join(" ");
 
-  // 6️⃣ Montagem final
   return `
-## 🧠 Resumo do vídeo
+## Resumo do vídeo
 
 ${intro}
 
-## 🔹 Pontos principais
+## Pontos principais
 ${middle.map(s => `- ${s.trim()}`).join("\n")}
 
-## ✅ Conclusão
+## Conclusão
 ${conclusion}
 `.trim();
 }
